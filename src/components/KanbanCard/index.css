@@ -1,0 +1,11 @@
+.kanban-column {
+  flex: 1 1;
+  border: 1px solid gray;
+  border-radius: 1rem;
+}
+
+.kanban-column > h2 {
+  margin: 0.6rem, 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid gray;
+}
