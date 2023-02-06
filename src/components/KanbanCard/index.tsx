@@ -4,13 +4,14 @@ import './index.css';
 export type KanbanCardProps = {
   id: string;
   title: string;
-  color: string;
+  date: string;
 };
 
 export default function KanbanCard(props: KanbanCardProps) {
   return (
-    <section className="kanban-column" style={{ backgroundColor: props.color }}>
-      <h2>{props.title}</h2>
-    </section>
+    <li className="kanban-card">
+      <div className="card-title">{props.title}</div>
+      <div className="card-status">{props.date}</div>
+    </li>
   );
 }
