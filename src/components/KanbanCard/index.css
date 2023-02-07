@@ -1,3 +1,12 @@
+.kanban-card {
+  margin-bottom: 1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  list-style: none;
+}
+
 .card-title {
   text-align: left;
   min-height: 3rem;
@@ -7,15 +16,6 @@
   text-align: right;
   font-size: 0.8rem;
   color: #333;
-}
-
-.kanban-card {
-  margin-bottom: 1rem;
-  padding: 0.6rem 1rem;
-  border: 1px solid gray;
-  border-radius: 1rem;
-  background-color: rgba(255, 255, 255, 0.4);
-  list-style: none;
 }
 
 .card-title > input[type="text"] {

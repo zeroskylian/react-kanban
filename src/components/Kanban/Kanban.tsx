@@ -9,7 +9,7 @@ export default function Kanban() {
       return {
         id: String(index),
         title: '开发任务-1',
-        date: new Date().toTimeString(),
+        date: new Date().toDateString(),
       };
     });
   const cards: KanbanSectionProps[] = [
