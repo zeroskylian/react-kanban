@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 import KanbanCard, { KanbanCardProps } from '../KanbanCard';
-import KanbanNewCard from '../KanbanNewCard/KanbanNewCard';
+import KanbanNewCard from '@components/KanbanNewCard/KanbanNewCard';
 
 export type KanbanSectionProps = {
   id: string;
@@ -19,9 +19,7 @@ export default function KanbanSection(props: KanbanSectionProps) {
     </ul>
   );
   const [showAdd, setShowAdd] = useState(false);
-  const handleSubmit = (text: string) => {
-
-  };
+  const handleSubmit = (text: string) => {};
   return (
     <section className="kanban-column" style={{ backgroundColor: props.color }}>
       <h2>
