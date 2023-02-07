@@ -18,6 +18,7 @@ export default function KanbanNewCard(props: {
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               props.onSubmit(title);
+              setTitle('')
             }
           }}
         />

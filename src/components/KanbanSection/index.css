@@ -23,6 +23,7 @@
 .kanban-column > h2 > button {
   float: right;
   margin-top: 0.2rem;
+  margin-right: 0.2rem;
   padding: 0.2rem 0.5rem;
   border: 0;
   border-radius: 1rem;
