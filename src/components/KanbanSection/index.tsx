@@ -8,13 +8,17 @@ export type KanbanSectionProps = {
   id: string;
   title: string;
   color: string;
-  todo: KanbanCardProps[];
   canShowAdd: boolean;
 };
 
-export default function KanbanSection(props: KanbanSectionProps) {
+export default function KanbanSection(
+  props: KanbanSectionProps & {
+    todo: KanbanCardProps[];
+    onAddTodo: (card: KanbanSectionProps, todo: KanbanCardProps[]) => void;
+  }
+) {
   const { canShowAdd } = props;
-  const [todolist, setTodoList] = useState<KanbanCardProps[]>([]);
+  const todolist = props.todo;
   const renderProps = (
     <ul>
       {todolist.map((card) => {
@@ -24,10 +28,12 @@ export default function KanbanSection(props: KanbanSectionProps) {
   );
   const [showAdd, setShowAdd] = useState(false);
   const handleSubmit = (text: string) => {
-    const card: KanbanCardProps = { id: nanoid(), title: text, date: new Date().toLocaleString() };
-    const list = [card, ...todolist];
-    console.log(list);
-    setTodoList(list);
+    const card: KanbanCardProps = {
+      id: nanoid(),
+      title: text,
+      date: new Date().toLocaleString(),
+    };
+    props.onAddTodo(props, [...todolist, card]);
   };
   return (
     <section className="kanban-column" style={{ backgroundColor: props.color }}>
