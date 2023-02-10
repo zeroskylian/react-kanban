@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
-import {} from 'date-fns';
 
 export type KanbanCardProps = {
   id: string;
@@ -14,7 +13,7 @@ const DAY = 24 * HOUR;
 const UPDATE_INTERVAL = MINUTE;
 
 export default function KanbanCard(props: KanbanCardProps) {
-  const { date } = props
+  const { title, date } = props;
   const [displayTime, setDisplayTime] = useState(props.date);
   useEffect(() => {
     const updateDisplayTime = () => {
@@ -35,9 +34,14 @@ export default function KanbanCard(props: KanbanCardProps) {
     };
   }, [date]);
 
+  const handleDragStart = (e: React.DragEvent<HTMLLIElement>) => {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', title);
+  };
+
   return (
-    <li className="kanban-card">
-      <div className="card-title">{props.title}</div>
+    <li className="kanban-card" draggable onDragStart={handleDragStart}>
+      <div className="card-title">{title}</div>
       <div className="card-status">{displayTime}</div>
     </li>
   );

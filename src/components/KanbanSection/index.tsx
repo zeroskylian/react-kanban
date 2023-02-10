@@ -14,7 +14,7 @@ export type KanbanSectionProps = {
 export default function KanbanSection(
   props: KanbanSectionProps & {
     todo: KanbanCardProps[];
-    onAddTodo: (card: KanbanSectionProps, todo: KanbanCardProps[]) => void;
+    onAddTodo: (card: KanbanSectionProps, todo: KanbanCardProps) => void;
   }
 ) {
   const { canShowAdd } = props;
@@ -33,10 +33,26 @@ export default function KanbanSection(
       title: text,
       date: new Date().toLocaleString(),
     };
-    props.onAddTodo(props, [...todolist, card]);
+    props.onAddTodo(props, card);
   };
   return (
-    <section className="kanban-column" style={{ backgroundColor: props.color }}>
+    <section
+      className="kanban-column"
+      style={{ backgroundColor: props.color }}
+      onDragOver={(e) => {
+        e.preventDefault()
+        e.dataTransfer.dropEffect = 'move'
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault()
+        e.dataTransfer.dropEffect = 'none'
+      }}
+      onDrop={(e) => {
+        e.preventDefault()
+      }}
+      onDragEnd={(e) => {
+        e.preventDefault()
+      }}>
       <h2>
         {props.title}{' '}
         {canShowAdd && (
