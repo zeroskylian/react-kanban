@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Kanban, { KanbanProps } from './components/Kanban/Kanban';
+import Kanban, { KanbanProps } from './components/Kanban';
 import { KanbanCardProps } from '@components/KanbanCard';
-import { KanbanSectionProps } from '@components/KanbanSection';
 
 const DATA_STORE_KEY = 'kanban-data-store';
+
+enum KanbanEnum {
+  todo = 'todo',
+  ongoing = 'ongoing',
+  done = 'done',
+}
+export { KanbanEnum };
 
 function App() {
   const [todoList, setTodoList] = useState<KanbanCardProps[]>([]);
@@ -12,14 +18,23 @@ function App() {
   const [doneList, setDoneList] = useState<KanbanCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const handleAddTodo = (card: KanbanSectionProps, todo: KanbanCardProps) => {
-    if (card.id === '1') {
-      setTodoList([todo, ...todoList]);
-    } else if (card.id === '2') {
-      setOngoingList([todo, ...ongoingList]);
-    } else {
-      setDoneList([todo, ...doneList]);
-    }
+  const updaters = {
+    [KanbanEnum.todo]: setTodoList,
+    [KanbanEnum.ongoing]: setOngoingList,
+    [KanbanEnum.done]: setDoneList,
+  };
+  const handleAddTodo = (card: KanbanEnum, todo: KanbanCardProps) => {
+    updaters[card as KanbanEnum]((prev) => {
+      return [todo, ...prev];
+    });
+  };
+
+  const handleRemoveTodo = (card: KanbanEnum, todo: KanbanCardProps) => {
+    updaters[card as KanbanEnum]((prev) => {
+      return prev.slice().filter((item) => {
+        return item.id !== todo.id;
+      });
+    });
   };
 
   const handleSaveTodo = () => {
@@ -57,6 +72,7 @@ function App() {
         ongoing={ongoingList}
         done={doneList}
         onSaveTodo={handleAddTodo}
+        onRemoveTodo={handleRemoveTodo}
         loading={loading}
       />
     </div>

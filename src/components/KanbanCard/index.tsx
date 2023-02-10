@@ -12,8 +12,12 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const UPDATE_INTERVAL = MINUTE;
 
-export default function KanbanCard(props: KanbanCardProps) {
-  const { title, date } = props;
+export default function KanbanCard(
+  props: KanbanCardProps & {
+    onDragStart: () => void;
+  }
+) {
+  const { title, date, onDragStart } = props;
   const [displayTime, setDisplayTime] = useState(props.date);
   useEffect(() => {
     const updateDisplayTime = () => {
@@ -37,6 +41,7 @@ export default function KanbanCard(props: KanbanCardProps) {
   const handleDragStart = (e: React.DragEvent<HTMLLIElement>) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', title);
+    onDragStart();
   };
 
   return (
