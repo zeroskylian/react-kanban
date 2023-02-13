@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './index.css';
+import AdminContext from 'context/AdminContext';
 
 export type KanbanCardProps = {
   id: string;
@@ -15,10 +16,12 @@ const UPDATE_INTERVAL = MINUTE;
 export default function KanbanCard(
   props: KanbanCardProps & {
     onDragStart: () => void;
+    onRemove: (id: string) => void;
   }
 ) {
   const { title, date, onDragStart } = props;
   const [displayTime, setDisplayTime] = useState(props.date);
+  const context = useContext(AdminContext);
   useEffect(() => {
     const updateDisplayTime = () => {
       const timePassed = new Date(date).getTime() - new Date().getTime();
@@ -47,7 +50,17 @@ export default function KanbanCard(
   return (
     <li className="kanban-card" draggable onDragStart={handleDragStart}>
       <div className="card-title">{title}</div>
-      <div className="card-status">{displayTime}</div>
+      <div className="card-status">
+        {displayTime}{' '}
+        {context.isAdmin && (
+          <button
+            onClick={() => {
+              props.onRemove(props.id);
+            }}>
+            X
+          </button>
+        )}
+      </div>
     </li>
   );
 }

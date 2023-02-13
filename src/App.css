@@ -36,3 +36,12 @@
   margin-bottom: 1rem;
   border-radius: 1rem;
 }
+
+.App-header > h1 > label {
+  font-size: initial;
+  font-weight: initial;
+}
+
+.App-header > h1 > * {
+  margin-left: 1rem;
+}

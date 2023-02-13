@@ -12,7 +12,7 @@ export type KanbanProps = {
 export default function Kanban(
   props: KanbanProps & {
     onSaveTodo: (card: KanbanEnum, todo: KanbanCardProps) => void;
-    onRemoveTodo: (card: KanbanEnum, todo: KanbanCardProps) => void;
+    onRemoveTodo: (card: KanbanEnum, id: string) => void;
     loading: boolean;
   }
 ) {
@@ -54,7 +54,7 @@ export default function Kanban(
     ) {
       return;
     }
-    dragSource && onRemoveTodo(dragSource, draggedItem);
+    dragSource && onRemoveTodo(dragSource, draggedItem.id);
     dragTarget && onSaveTodo(dragTarget, draggedItem);
   };
 
@@ -70,6 +70,7 @@ export default function Kanban(
               {...card}
               todo={list[index]}
               onAddTodo={props.onSaveTodo}
+              onRemoveTodo={onRemoveTodo}
               setDraggedItem={setDraggedItem}
               setIsDragSource={(isDragSource) => {
                 setDragSource(isDragSource ? card.id : null);

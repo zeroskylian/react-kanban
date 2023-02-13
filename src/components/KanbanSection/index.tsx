@@ -17,6 +17,7 @@ export type KanbanSectionProps = {
 export type KanbanSectionTodoProps = {
   todo: KanbanCardProps[];
   onAddTodo: (card: KanbanEnum, todo: KanbanCardProps) => void;
+  onRemoveTodo: (card: KanbanEnum, id: string) => void;
 };
 
 // 用于拖拽数据
@@ -47,6 +48,9 @@ export default function KanbanSection(
             {...card}
             onDragStart={() => {
               setDraggedItem(card);
+            }}
+            onRemove={(id) => {
+              props.onRemoveTodo(props.id, id);
             }}
           />
         );
